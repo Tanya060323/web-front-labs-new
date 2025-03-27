@@ -42,7 +42,7 @@ a:visited {
 }
 
 a:hover {
-    color: #2c5045;
+    color: #283e38;
     text-decoration: underline;
     text-decoration-color: rgba(44, 62, 80, 0.3);
     transition: 0.3s;
@@ -51,4 +51,16 @@ a:hover {
 a:active {
     color: #1a7661;
     opacity: 0.3;
+}
+
+div.menu {
+    border: 7px solid #afc3a8;
+    border-radius: 5px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+div.menu:hover {
+    background-color: #ffffff30;
+    box-shadow: 0 0 15px #00000030;
 }
