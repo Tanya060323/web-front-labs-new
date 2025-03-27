@@ -28,3 +28,26 @@ a {
     text-decoration: none;
     color: black;
 }
+
+a:link {
+    color: #023f2f;
+    text-decoration: none;
+    position: relative;
+}
+
+a:visited {
+    color: #0a7c6d;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2c5045;
+    text-decoration: underline;
+    text-decoration-color: rgba(44, 62, 80, 0.3);
+    transition: 0.3s;
+}
+
+a:active {
+    color: #1a7661;
+    opacity: 0.3;
+}
