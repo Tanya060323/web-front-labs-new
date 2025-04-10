@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Щегорцова Татьяна Алексеевна. Панель прогресса</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="../Картинки/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../Картинки/favicon-16x16.png">
+        <link rel="icon" href="../Картинки/favicon-32x32.png">
+        <style>
+             .progress-panel {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 700px;
+            }
+
+            .progress-container {
+                background: white;
+                padding: 50px;
+                border-radius: 15px;
+                text-align: center;
+                width: 300px;
+            }
+
+            .progress-title {
+                color: #012306;
+                font-size: 25px;
+                font-weight: 600;
+            }
+
+            .progress-stripe {
+                background-color: #c2d9c7;
+                border-radius: 10px;
+                height: 20px;
+                margin: 30px 0px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .progress-completion {
+                background: #022f0d;
+                height: 100%;
+                width: 0;
+                transition: 5s;
+            }
+
+            .progress-button {
+                background: #022f0d;
+                color: white;
+                padding: 15px 30px;
+                border-radius: 10px;
+                cursor: pointer;
+                font-family: 'Segoe UI';
+                font-size: 16px;
+                font-weight: 500;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
+                transition: 0.1s;
+            }
+
+            .progress-button:hover {
+                box-shadow: 0 6px 12px rgba(0,0,0,0.44);
+            }
+
+            .progress-button:active {
+                box-shadow: none;
+            }
+
+            .progress-container:active .progress-completion {
+                width: 100%;
+                transition: width 5s linear;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            НГТУ, ФБ, Лабораторная работа 4
+            <hr>
+        </header>
+
+        <main>
+            <div class="progress-panel">
+                <div class="progress-container">
+                    <div class="progress-title">Степень прогресса</div>
+                    <div class="progress-stripe">
+                        <div class="progress-completion"></div>
+                    </div>
+                    <button class="progress-button">Нажмите и удерживайте</button>
+                </div>
+            </div> 
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Щегорцова Татьяна, ФБИ-31, 2 курс, 2025
+        </footer>
+    </body>
+</html>
