@@ -49,6 +49,53 @@
                 alert ('Произведение ' + a + ' и ' + b + ' равна ' + result);
             }
 
+            function showDiv() {
+                let inputA = document.getElementById('numberA');
+                let inputB = document.getElementById('numberB');
+
+                let a = parseInt(inputA.value);
+                let b = parseInt(inputB.value);
+
+                if (isNaN(a)) {
+                    alert('Введите числовое значение в первое поле');
+                    inputA.focus();
+                    inputA.select();
+                    inputA.style.color = 'red';
+                    inputA.style.borderColor = 'red';
+                    return;
+                } else {
+                    inputA.style.color = '';
+                    inputA.style.borderColor = '';
+                }
+
+                if (isNaN(b)) {
+                    alert('Введите числовое значение во второе поле');
+                    inputB.focus();
+                    inputB.select();
+                    inputB.style.color = 'red';
+                    inputB.style.borderColor = 'red';
+                    return;
+                } else {
+                    inputB.style.color = '';
+                    inputB.style.borderColor = '';
+                }
+
+                if (b == 0) {
+                    alert('На ноль делить нельзя!');
+                    inputB.focus();
+                    inputB.select();
+                    inputB.style.color = 'red';
+                    inputB.style.borderColor = 'red';
+                    return;
+                } else {
+                    inputA.style.color = '';
+                    inputA.style.borderColor = '';
+                }
+
+                let result = a / b;
+                alert(a + " / " + b + " = " + result);
+            }
+
         </script>
         <style>
             .message {
@@ -78,6 +125,7 @@
             <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
             <div class="message" onclick="showSub()">Найти разность чисел</div>
             <div class="message" onclick="showMultiplication()">Найти произведение чисел</div>
+            <div class="message" onclick="showDiv()">Найти отношение чисел</div>
         </main>
 
         <footer onclick="showFooter()">
