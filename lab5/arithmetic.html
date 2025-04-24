@@ -147,6 +147,16 @@
                 alert(a + "^" + b + " = " + result);
             }
 
+            function changeOutput(buttonNum, backColor, textColor, borderStyle, borderWidth, borderRadius) {
+                let output = document.getElementById('output');
+                output.innerHTML = 'Нажата кнопка ' + buttonNum;
+                output.style.backgroundColor = backColor;
+                output.style.color = textColor;
+                output.style.borderStyle = borderStyle;
+                output.style.borderWidth = borderWidth;
+                output.style.borderRadius = borderRadius;
+            }
+
         </script>
         <style>
             .message {
@@ -160,6 +170,12 @@
                 margin: 5px;
                 padding: 10px;
                 font-size: 16px;
+            }
+
+            #output {
+                border: 1px solid;
+                width: 300px;
+                height: 40px;
             }
         </style>
     </head>
@@ -178,6 +194,15 @@
             <div class="message" onclick="showDiv()">Найти отношение чисел</div>
             <div class="message" onclick="showPower()">Возвести в степень</div>
             <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
+
+            <div>
+                <input type="button" value="Кнопка 1" onclick="changeOutput(1, 'red', 'yellow', 'solid', '4px', '10px')">
+                <input type="button" value="Кнопка 2" onclick="changeOutput(2, 'black', 'lime', 'dashed', '5px', '4px')">
+                <input type="button" value="Кнопка 3" onclick="changeOutput(3, 'blue', 'white', 'dotted', '7px', '8px')">
+                <input type="button" value="Кнопка 4" onclick="changeOutput(4, 'pink', 'purple', 'double', '3px', '12px')">
+            </div>
+
+            <div id="output"></div>
         </main>
 
         <footer onclick="showFooter()">
