@@ -20,6 +20,12 @@
                 document.getElementById('brightnessOutput').innerText = brightness;
                 document.getElementById('brightnessImage').style.filter = 'brightness(' + brightness + ')';
             }
+
+            function contrastChange() {
+                let contrast = document.getElementById('contrastValue').value + '%';
+                document.getElementById('contrastOutput').innerText = contrast;
+                document.getElementById('contrastImage').style.filter = 'contrast(' + contrast + ')';
+            }
         </script>
 
         <style>
@@ -47,12 +53,21 @@
             </div>
             <div><img src="i.webp" id="blurImage" class="size-image"></div>
 
+
             <div class="text">
                 Фильтр brightness:
                 <input type="range" min="0" max="500" value="100" oninput="brightnessChange()" id="brightnessValue">
                 <span id="brightnessOutput"></span>
             </div>
             <div><img src="i.webp" id="brightnessImage" class="size-image"></div>
+
+
+            <div class="text">
+                Фильтр contrast:
+                <input type="range" min="0" max="500" value="100" oninput="contrastChange()" id="contrastValue">
+                <span id="contrastOutput"></span>
+            </div>
+            <div><img src="i.webp" id="contrastImage" class="size-image"></div>
         </main>
 
         <footer>
