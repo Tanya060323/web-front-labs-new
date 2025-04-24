@@ -16,6 +16,16 @@
                 alert ('Сумма ' + a + ' и ' + b + ' равна ' + result);
             }
 
+            function showAuthor() {
+                let author = 'Автор страницы:\nЩегорцова Татьяна Алексеевна';
+                alert (author);
+            }
+
+            function showFooter() {
+                let footer = 'Приветствую вас на моей странице!\nПлыви всегда, плыви везде и путь найдёшь к своей мечте!';
+                alert (footer);
+            }
+
         </script>
         <style>
             .message {
@@ -33,17 +43,17 @@
         </style>
     </head>
     <body>
-        <header>
+        <header onclick="showAuthor()">
             НГТУ, ФБ, Лабораторная работа 5
             <hr>
         </header>
 
         <main>
             <div class="message" onclick="showSum()">Сколько будет 5154+7891?</div>
-            <div class="message">Узнать, кто автор страницы</div>
+            <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
         </main>
 
-        <footer>
+        <footer onclick="showFooter()">
             <hr>
             &copy; Щегорцова Татьяна, ФБИ-31, 2 курс, 2025
         </footer>
