@@ -96,6 +96,57 @@
                 alert(a + " / " + b + " = " + result);
             }
 
+            function showPower() {
+                let inputA = document.getElementById('numberA');
+                let inputB = document.getElementById('numberB');
+
+                let a = parseInt(inputA.value);
+                let b = parseInt(inputB.value);
+
+                if (isNaN(a)) {
+                    alert('Введите числовое значение в первое поле');
+                    inputA.focus();
+                    inputA.select();
+                    inputA.style.color = 'red';
+                    inputA.style.borderColor = 'red';
+                    return;
+                } else {
+                    inputA.style.color = '';
+                    inputA.style.borderColor = '';
+                }
+
+                if (isNaN(b)) {
+                    alert('Введите числовое значение во второе поле');
+                    inputB.focus();
+                    inputB.select();
+                    inputB.style.color = 'red';
+                    inputB.style.borderColor = 'red';
+                    return;
+                } else {
+                    inputB.style.color = '';
+                    inputB.style.borderColor = '';
+                }
+
+                if (a == 0 && b == 0) {
+                    alert('Ошибка!');
+                    inputA.focus();
+                    inputA.select();
+                    inputA.style.color = 'red';
+                    inputA.style.borderColor = 'red';
+                    inputB.style.color = 'red';
+                    inputB.style.borderColor = 'red';
+                    return;
+                } else {
+                    inputA.style.color = '';
+                    inputA.style.borderColor = '';
+                    inputB.style.color = '';
+                    inputB.style.borderColor = '';
+                }
+
+                let result = a ** b;
+                alert(a + "^" + b + " = " + result);
+            }
+
         </script>
         <style>
             .message {
@@ -122,10 +173,11 @@
             <label>Первое число: <input type="number" value="5154" id="numberA"></label><br>
             <label>Второе число: <input type="number" value="7891" id="numberB"></label><br>
             <div class="message" onclick="showSum()">Найти сумму чисел</div>
-            <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
             <div class="message" onclick="showSub()">Найти разность чисел</div>
             <div class="message" onclick="showMultiplication()">Найти произведение чисел</div>
             <div class="message" onclick="showDiv()">Найти отношение чисел</div>
+            <div class="message" onclick="showPower()">Возвести в степень</div>
+            <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
         </main>
 
         <footer onclick="showFooter()">
