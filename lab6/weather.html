@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Щегорцова Татьяна Алексеевна. Дополнительное задание</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="../Картинки/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../Картинки/favicon-16x16.png">
+        <link rel="icon" href="../Картинки/favicon-32x32.png">
+        <script>
+            let temperatures = [];
+            let weatherBars = [];
+
+            function generateRandomTemperatures() {
+                temperatures = [];
+                for (let i = 0; i < 30; i++) {
+                    let minTemp = Math.floor(Math.random() * 15) - 5; 
+                    let maxTemp = minTemp + Math.floor(Math.random() * 10) + 5;
+                    temperatures.push({min: minTemp, max: maxTemp, day: i+1});
+                }
+            }
+
+            function showWeatherDiagram() {
+                generateRandomTemperatures();
+                const diagram = document.getElementById('weather-diagram');
+                diagram.innerHTML = '';
+                weatherBars = [];
+                
+                let maxTemp = Math.max(...temperatures.map(t => t.max));
+                let minTemp = Math.min(...temperatures.map(t => t.min));
+                let scale = 280 / (maxTemp - minTemp);
+                
+                for (let i = 0; i < temperatures.length; i++) {
+                    const day = temperatures[i];
+                    const minHeight = (day.min - minTemp) * scale;
+                    const maxHeight = (day.max - minTemp) * scale;
+                    
+                    const bar = document.createElement('div');
+                    bar.className = 'bar';
+                    bar.dataset.day = i + 1;
+                    bar.style.height = maxHeight + 'px';
+
+                    let minValueHtml = '';
+                    if (day.min > -10) { 
+                        minValueHtml = `<div class="temperature-value min-value">${day.min}°C</div>`;
+                    }
+
+                    bar.innerHTML = `
+                        <div class="temperature-value max-value">${day.max}°C</div>
+                        <div class="min-temp" style="height:${minHeight}px">${minValueHtml}</div>
+                        <div class="day-label">${i+1}</div>
+                    `;
+                    
+                    bar.onclick = function() { selectDay(i); };
+                    diagram.appendChild(bar);
+                    weatherBars.push(bar);
+                }
+            }
+
+            function selectDay(dayIndex) {
+                weatherBars.forEach(bar => bar.classList.remove('selected'));
+                
+                if (dayIndex >= 0 && dayIndex < weatherBars.length) {
+                    weatherBars[dayIndex].classList.add('selected');
+                    document.getElementById('day-number').value = dayIndex + 1;
+                    
+                    const day = temperatures[dayIndex];
+                    document.getElementById('weather-info').innerHTML = `
+                        <div><b>День ${day.day}</b></div>
+                        <div>Минимальная температура: ${day.min}°C</div>
+                        <div>Максимальная температура: ${day.max}°C</div>
+                    `;
+                }
+            }
+
+            function highlightDay() {
+                const dayNumber = parseInt(document.getElementById('day-number').value);
+                if (!isNaN(dayNumber)) {
+                    if (dayNumber >= 1 && dayNumber <= 30) {
+                        selectDay(dayNumber - 1);
+                    } else {
+                        alert('Пожалуйста, введите число от 1 до 30');
+                    }
+                }
+            }
+
+            window.onload = function() {
+                showWeatherDiagram();
+            };
+        </script>
+        <style>
+            .chart-container {
+                display: flex;
+                height: 400px;
+                align-items: flex-end;
+                gap: 3px;
+                margin: 20px 0;
+                padding: 10px 20px;
+                border: 1px solid #e2eaec;
+                border-radius: 10px;
+                background: #f8f9fa;
+            }
+    
+            .bar {
+                width: 40px;
+                background-color: #11bc33;
+                position: relative;
+                transition: all 0.3s;
+                cursor: pointer;
+            }
+    
+            .bar:hover {
+                opacity: 0.8;
+            }
+    
+            .bar.selected {
+                background-color: #fa997b;
+            }
+
+            .bar.selected .min-temp {
+                background-color: #ff6434;
+            }
+    
+            .min-temp {
+                background-color: #2196F3;
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                transition: all 0.3s;
+            }
+
+            .temperature-value {
+                position: absolute;
+                width: 40px;
+                font-weight: 500;
+                margin-top: 2px;
+                font-size: 10pt;
+                text-align: center;
+            }
+
+            .max-value {
+                top: -18px;
+            }
+
+            .min-value {
+                top: -18px;
+            }
+
+            .day-label {
+                position: absolute;
+                bottom: -25px;
+                width: 100%;
+                text-align: center;
+                font-size: 10pt;
+            }
+
+            #weather-info {
+                margin: 20px 0;
+                padding: 15px;
+                background-color: #f8f9fa;
+                border-radius: 10px;
+            }
+
+            #day-number {
+                
+                border: 1px solid #e2eaec;
+                border-radius: 10px;
+                padding: 8px;
+                font-size: 12pt;
+                margin-right: 10px;
+            }
+
+            button {
+                padding: 8px 15px;
+                background-color: #0b3006;
+                border: none;
+                border-radius: 10px;
+                color: white;
+                transition: background-color 0.3s;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            НГТУ, ФБ, Лабораторная работа 6
+            <hr>
+        </header>
+
+        <main>
+            <h1>Температура за месяц</h1>
+            <div class="chart-container" id="weather-diagram"></div>
+            <div>
+                <input type="number" id="day-number" min="1" max="30">
+                <button onclick="highlightDay()">Показать</button>
+            </div>
+            <div id="weather-info">
+                Выберите день для просмотра температур
+            </div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Щегорцова Татьяна, ФБИ-31, 2 курс, 2025
+        </footer>
+    </body>
+</html>
