@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Щегорцова Татьяна Алексеевна. Дата-время</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="../Картинки/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../Картинки/favicon-16x16.png">
+        <link rel="icon" href="../Картинки/favicon-32x32.png">
+        <script>
+            let timerNim;
+            let timeUpdateTimer;
+
+            function showDate() {
+                let out = document.getElementById('current-date');
+                let today = new Date();
+
+                out.innerHTML = `
+                    <div>Дата и время для русской локали: ${today.toLocaleString('ru-RU')}</div>
+                    <div>Дата и время для локали Египта: ${today.toLocaleString('ar-EG')}</div>
+                    <div>Дата и время для испанской локали: ${today.toLocaleString('ca-ES')}</div>
+                    <div>Дата и время для немецкой локали: ${today.toLocaleString('de-DE')}</div>
+                    <div>Дата и время для итальянской локали: ${today.toLocaleString('it-IT')}</div>
+                    <div>Дата и время для японской локали: ${today.toLocaleString('ja-JP')}</div>
+                `;
+            }
+
+            function changeColors() {
+                const header = document.getElementsByTagName('header')[0];
+                const rgb = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+                header.style.color = rgb;
+            }
+
+            function startChangeColors() {
+                changeColors();
+                timerNim = setInterval(changeColors, 1000);
+                document.getElementById('start-btn').disabled = true;
+                document.getElementById('stop-btn').disabled = false;
+            }
+
+            function stopChangeColors() {
+                clearInterval(timerNim);
+                document.getElementById('start-btn').disabled = false;
+                document.getElementById('stop-btn').disabled = true;
+            }
+
+            function startUpdateTime() {
+                showDate();
+                timeUpdateInterval = setInterval(showDate, 1000);
+                document.getElementById('update-time-btn').disabled = true;
+                document.getElementById('stop-time-btn').disabled = false;
+            }
+
+            function stopUpdateTime() {
+                clearInterval(timeUpdateInterval);
+                document.getElementById('update-time-btn').disabled = false;
+                document.getElementById('stop-time-btn').disabled = true;
+            }
+        </script>
+
+        <style>
+            header {
+                transition: color 1s;
+            }
+
+            #current-date div {
+                font-size: 18px;
+                color: #001002;
+                margin: 15px;
+                padding: 15px;
+                background-color: #def0df;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            .buttons button {
+                padding: 10px 15px;
+                margin: 0 0 0 15px;
+                font-size: 14px;
+                border: none;
+                border-radius: 10px;
+                background-color: #09370f;
+                color: white;
+                transition: background-color 0.3s;
+            }
+
+            .buttons button:disabled {
+                background-color: #898d89;
+            }
+        </style>
+    </head>
+    <body onload="showDate()">
+        <header>
+            НГТУ, ФБ, Лабораторная работа 6
+            <hr>
+        </header>
+
+        <main>
+            <div id="current-date"></div>
+
+            <div class="buttons">
+                <button onclick="startChangeColors()" id="start-btn">Старт</button>
+                <button onclick="stopChangeColors()" disabled id="stop-btn">Стоп</button>
+                <button onclick="startUpdateTime()" id="update-time-btn">Обновлять время</button>
+                <button onclick="stopUpdateTime()" disabled id="stop-time-btn">Остановить обновление времени</button>
+            </div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Щегорцова Татьяна, ФБИ-31, 2 курс, 2025
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Щегорцова Татьяна Алексеевна. Дополнительное задание</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="../Картинки/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../Картинки/favicon-16x16.png">
+        <link rel="icon" href="../Картинки/favicon-32x32.png">
+        <style>
+            #image-container {
+                position: relative;
+                margin: 20px auto;
+                border: 1px solid #ccc;
+                overflow: hidden;
+            }
+            #filter-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            #filter-info {
+                text-align: center;
+                margin: 10px 0;
+                
+            }
+            .instructions {
+                background-color: #f0f0f0;
+                padding: 10px;
+                border-radius: 5px;
+                margin-bottom: 20px;
+            }
+        </style>
+
+        <script>
+            function updateFilter(event) {
+                const container = document.getElementById('image-container');
+                const image = document.getElementById('filter-image');
+                const info = document.getElementById('filter-info');
+                
+                const rect = container.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const percent = Math.round((x / rect.width) * 100);
+                
+                let filter = '';
+                let filterName = '';
+                
+                if(event.ctrlKey) {
+                    const value = Math.round(percent);
+                    filter = 'grayscale(' + value + '%)';
+                    filterName = 'grayscale(' + value + '%)';
+                } else if(event.altKey) {
+                    const value = Math.round(percent);
+                    filter = 'sepia(' + value + '%)';
+                    filterName = 'sepia(' + value + '%)';
+                } else if(event.shiftKey) {
+                    const value = Math.round(percent);
+                    filter = 'invert(' + value + '%)';
+                    filterName = 'invert(' + value + '%)';
+                } else {
+                    const value = Math.round((percent / 100) * 20);
+                    filter = 'blur(' + value + 'px)';
+                    filterName = 'blur(' + value + 'px)';
+                }
+                
+                image.style.filter = filter;
+                info.innerText = 'Фильтр: ' + filterName;
+            }
+        </script>
+    </head>
+    <body>
+        <header>
+            НГТУ, ФБ, Лабораторная работа 5
+            <hr>
+        </header>
+
+        <main>
+            <div class="instructions">
+                <p>При наведении мыши на изображение будет работать фильтр blur.</p>
+                <p>При нажатой клавише Ctrl - фильтр grayscale</p>
+                <p>При нажатой клавише Alt - фильтр sepia</p>
+                <p>При нажатой клавише Shift - фильтр invert</p>
+            </div>
+            
+            <div id="image-container" onmousemove="updateFilter(event)">
+                <img src="orig.webp" id="filter-image" alt="Пример изображения">
+            </div>
+            
+            <div id="filter-info">Фильтр: blur(0px)</div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Щегорцова Татьяна, ФБИ-31, 2 курс, 2025
+        </footer>
+    </body>
+</html>

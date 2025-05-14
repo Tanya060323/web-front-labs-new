@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Щегорцова Татьяна Алексеевна. Список книг</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="../Картинки/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../Картинки/favicon-16x16.png">
+        <link rel="icon" href="../Картинки/favicon-32x32.png">
+        <script src="books.js"></script>
+        <script>
+            function showBooks() {
+                const bookList = document.getElementById('bookList');
+                bookList.innerHTML = '';
+        
+                for (let i = 0; i < books.length; i++) {
+                    const book = books[i];
+                    let bookClass = 'book';
+                    if (book.bestseller) bookClass += ' bestseller';
+                    if (!book.inStock) bookClass += ' out-of-stock';
+
+                    let outOfStockLabel = '';
+                    if (!book.inStock) {
+                    outOfStockLabel = '<span class="out-of-stock-label">(Нет в наличии)</span>';
+                    }
+        
+                    bookList.innerHTML += `
+                        <div class="${ bookClass }">
+                            <b>${ book.author }.</b>
+                            <i>${ book.name }</i>
+                            &mdash; ${ book.publicationYear }
+                            <span class="price">${ book.price } ₽</span>
+                            ${ outOfStockLabel }
+                        </div>
+                    `;
+                }
+            }
+        </script>
+
+        <style>
+            .book {
+                margin: 10px;
+                padding: 15px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+            }
+            .bestseller {
+                border-left: 5px solid gold;
+                background-color: #fff9e6;
+            }
+            .out-of-stock {
+                opacity: 0.6;
+                background-color: #f0f0f0;
+            }
+            .price {
+                font-weight: bold;
+                color: #2e8b57;
+            }
+        </style>
+    </head>
+    <body onload="showBooks()">
+        <header>
+            НГТУ, ФБ, Лабораторная работа 6
+            <hr>
+        </header>
+
+        <main>
+            <h1 style="text-align: center">Список книг</h1>
+            <div id="bookList">
+            </div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Щегорцова Татьяна, ФБИ-31, 2 курс, 2025
+        </footer>
+    </body>
+</html>
