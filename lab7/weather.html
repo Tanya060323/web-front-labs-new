@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Щегорцова Татьяна Алексеевна. Прогноз погоды</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="../Картинки/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../Картинки/favicon-16x16.png">
+        <link rel="icon" href="../Картинки/favicon-32x32.png">
+        <script src="dollar-data.js"></script>
+        <script>
+            function getWeather() {
+                const url = 'https://api.open-meteo.com/v1/forecast?latitude=55.0415&longitude=82.9346&hourly=temperature_2m&timezone=Asia%2FBangkok';
+
+                fetch(url)
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        const times = data.hourly.time;
+                        const temps = data.hourly.temperature_2m;
+                        const targetHours = ['08:00', '12:00', '20:00'];
+
+                        let output = ' ';
+
+                        for (let i = 0; i < targetHours.length; i++) {
+                            const hour = targetHours[i];
+                            const index = times.findIndex(function(t) {
+                                return t.includes(`T${hour}`);
+                            });
+
+                            if (index !== -1) {
+                                const date = new Date(times[index]).toLocaleTimeString('ru-RU', {
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                });
+
+                                output += `
+                                    <div class="weather-time">
+                                        <b>${date}:</b> ${temps[index]}°C
+                                    </div>
+                                `;
+                            }
+                        }
+
+                        let weatherResult = document.getElementById('weatherResult');
+
+                        weatherResult.innerHTML = `
+                            <h2 class="weather-title">Прогноз погоды на сегодня в Новосибирске:</h2>
+                            ${output}
+                        `;
+                        weatherResult.style.display = 'block';
+                    })
+            }
+        </script>
+        <style>
+            button {
+                background-color: #103816;
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                font-size: 16px;
+                border-radius: 10px;
+            }
+
+            .weather-result {
+                display: none;
+                border: 2px solid #93c590;
+                padding: 15px;
+                margin-top: 10px;
+                border-radius: 10px;
+                background-color: #f9f9f9;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .weather-title {
+                color: #060606;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            НГТУ, ФБ, Лабораторная работа 7
+            <hr>
+        </header>
+
+        <main>
+            <button onclick="getWeather()">Получить прогноз погоды</button>
+            <div id="weatherResult" class="weather-result"></div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Щегорцова Татьяна, ФБИ-31, 2 курс, 2025
+        </footer>
+    </body>
+</html>
