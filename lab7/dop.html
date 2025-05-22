@@ -46,11 +46,7 @@
                 width: 36px;
                 border-radius: 6px 6px 0 0;
                 position: relative;
-                background: #96a604;
-            }
-
-            .bar.humidity {
-                background: #5e9e5e;
+                background: #046da6;
             }
 
             .time {
@@ -81,7 +77,7 @@
             }
 
             button {
-                background-color: #2e823c;
+                background-color: #2e5e82;
                 color: white;
                 border: none;
                 padding: 10px 15px;
@@ -90,6 +86,10 @@
                 border-radius: 10px;
                 transition: background-color 0.2s;
                 font-family: 'Segoe UI', sans-serif;
+            }
+
+            button:hover {
+                background-color: #3498db;
             }
         </style>
     </head>
@@ -100,11 +100,11 @@
         </header>
 
         <main>
-            <button onclick="loadWeatherData()">Загрузить данные о погоде</button>
+            <button onclick="loadWeatherData()">Загрузить данные о температуре</button>
             <div id="weatherData" class="hidden">
                 <div class="current">
                     <span id="current-temp"></span>
-                    <span id="current-humidity"></span>
+                    <span id="current-apparent-temp"></span>
                 </div>
 
                 <div class="chart">
@@ -113,8 +113,8 @@
                 </div>
 
                 <div class="chart">
-                    <h2>Влажность (%)</h2>
-                    <div class="bars" id="humidityBars"></div>
+                    <h2>Ощущаемая температура (°C)</h2>
+                    <div class="bars" id="apparentBars"></div>
                 </div>
             </div>
         </main>
@@ -124,7 +124,7 @@
             &copy; Щегорцова Татьяна, ФБИ-31, 2 курс, 2025
         </footer>
         <script>
-            const URL = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation,rain,showers,snowfall,weather_code,cloud_cover,pressure_msl,surface_pressure&timezone=auto&past_days=1&forecast_days=1';
+            const URL = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m,apparent_temperature&current=relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,pressure_msl,surface_pressure,wind_speed_10m,wind_direction_10m,wind_gusts_10m,temperature_2m&past_days=1&forecast_days=1';
 
             function createBar(value, max, time, isTemp) {
                 const bar = document.createElement('div');
@@ -157,7 +157,7 @@
 
             function loadWeatherData() {
                 document.getElementById('tempBars').innerHTML = '';
-                document.getElementById('humidityBars').innerHTML = '';
+                document.getElementById('apparentBars').innerHTML = '';
 
                 fetch(URL)
                     .then(function(response) {
@@ -171,11 +171,11 @@
 
             function renderWeather(data) {
                 document.getElementById('current-temp').innerHTML = `<b>Текущая температура:</b> ${data.current.temperature_2m}°C`;
-                document.getElementById('current-humidity').innerHTML = `<b>Текущая влажность:</b> ${data.current.relative_humidity_2m}%`;
+                document.getElementById('current-apparent-temp').innerHTML = `<b>Ощущаемая температура:</b> ${data.current.apparent_temperature}°C`;
 
                 const hours = data.hourly.time;
                 const temps = data.hourly.temperature_2m;
-                const humidities = data.hourly.relative_humidity_2m;
+                const apparent = data.hourly.apparent_temperature;
 
                 const maxTemp = Math.max(...temps.map(Math.abs));
                 const tempBars = hours.map(function(time, i) {
@@ -183,11 +183,11 @@
                 });
                 document.getElementById('tempBars').append(...tempBars);
 
-                const maxHumidity = Math.max(...humidities);
-                const humidityBars = hours.map(function(time, i) {
-                    return createBar(humidities[i], maxHumidity, time, false);
+                const maxApparent = Math.max(...apparent);
+                const apparentBars = hours.map(function(time, i) {
+                    return createBar(apparent[i], maxApparent, time, false);
                 });
-                document.getElementById('humidityBars').append(...humidityBars);
+                document.getElementById('apparentBars').append(...apparentBars);
             }
         </script>
     </body>
