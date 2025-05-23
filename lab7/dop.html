@@ -44,13 +44,12 @@
 
             .bar {
                 width: 36px;
-                border-radius: 6px 6px 0 0;
                 position: relative;
-                background: #96a604;
+                background: #c4c40d;
             }
 
             .bar.humidity {
-                background: #5e9e5e;
+                background: #c23414;
             }
 
             .time {
@@ -77,19 +76,15 @@
             .current span {
                 display: block;
                 line-height: 1;
-                font-family: 'Segoe UI', sans-serif;
             }
 
             button {
-                background-color: #2e823c;
+                background-color: #113e19;
                 color: white;
                 border: none;
                 padding: 10px 15px;
                 font-size: 16px;
-                cursor: pointer;
                 border-radius: 10px;
-                transition: background-color 0.2s;
-                font-family: 'Segoe UI', sans-serif;
             }
         </style>
     </head>
@@ -124,7 +119,7 @@
             &copy; Щегорцова Татьяна, ФБИ-31, 2 курс, 2025
         </footer>
         <script>
-            const URL = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m,relative_humidity_2m&current=temperature_2m,relative_humidity_2m&timezone=auto&past_days=1&forecast_days=1';
+            const URL = 'https://api.open-meteo.com/v1/forecast?latitude=55.0344&longitude=82.9434&hourly=temperature_2m,relative_humidity_2m&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,snowfall,precipitation,rain,showers,surface_pressure,pressure_msl,cloud_cover,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&timezone=Europe%2FMoscow&past_days=1&forecast_days=1';
 
             function createBar(value, max, time, isTemp) {
                 const bar = document.createElement('div');
@@ -133,9 +128,9 @@
 
                 if (isTemp) {
                     if (value > 0) {
-                        bar.style.background = '#f5743a';
+                        bar.style.background = '#FF7F50';
                     } else {
-                        bar.style.background = '#0066cc';
+                        bar.style.background = '#D8BFD8';
                     }
                 }
 
